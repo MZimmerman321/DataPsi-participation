@@ -9,5 +9,5 @@ Class Homepage (O):
 Participation Repo (U):
   https://github.com/MZimmerman321/DataPsi-participation
   
-Class Book website
+Class Book website (O):
   https://wiernik-datasci-guide.netlify.com/
