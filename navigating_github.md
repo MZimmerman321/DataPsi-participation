@@ -17,5 +17,3 @@
 * **Participation Repo (U):**
   https://github.com/MZimmerman321/DataPsi-participation
   
-  test
-
