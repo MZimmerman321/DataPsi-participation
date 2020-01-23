@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 * **Class Website (O):**
   https://wiernik-datasci.netlify.com/
 
