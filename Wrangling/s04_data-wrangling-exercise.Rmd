@@ -166,7 +166,7 @@ Return to guide at the section on *Relational/Comparison and Logical Operators i
 
 ```{r}
 gapminder %>%
-  filter(FILL_THIS_IN)
+  filter(pop > 10*10^7)
 
 ```
 
@@ -174,14 +174,19 @@ gapminder %>%
 
 ```{r}
 gapminder %>%
-  filter(FILL_THIS_IN)
+  filter(continent == "Asia") %>% 
+  filter(pop >10*10^7)
 ```
 
 3. Repeat 2, but take data from countries Brazil, and China. 
 
 ```{r}
-gapminder %>%
-  filter(FILL_THIS_IN)
+#why am i getting 0 rows :/ 
+
+gapminder %>% 
+  filter(pop > 10*10^7, 
+         country %in% c("Brazil, China"))
+
 ```
 
 ## `mutate()` (10 min)
@@ -201,7 +206,8 @@ Let's get:
 
 ```{r}
 gapminder %>%
-  mutate(FILL_THIS_IN)
+  mutate(grossGDP = gdpPercap * pop, 
+         gdpBill  = (grossGDP / 1000000000) %>% round(2))
 ```
 
 Notice the backwards compatibility! No need for loops!
@@ -210,7 +216,8 @@ Try the same thing, but with `transmute` (drops all other variables).
 
 ```{r}
 gapminder %>%
-  transmute(FILL_THIS_IN)
+  transmute(country, continent, lifeExp, 
+            gdpBill = (pop * gdpPercap/1000000000 %>% round(2)))
 ```
 
 The `if_else` function is useful for changing certain elements in a data frame.
