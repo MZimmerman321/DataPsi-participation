@@ -11,7 +11,7 @@ output:
 ```{r allow errors, echo = FALSE}
 knitr::opts_chunk$set(error = TRUE)
 ```
-
+#
 **When you make an Rmd file for participation or homework, be sure to do this**:
 
 1. Change the file output to both html and md _documents_ (not notebook).
@@ -167,6 +167,7 @@ Return to guide at the section on *Relational/Comparison and Logical Operators i
 ```{r}
 gapminder %>%
   filter(FILL_THIS_IN)
+
 ```
 
 2. Your turn: of those rows filtered from step 1., only take data from Asia.
