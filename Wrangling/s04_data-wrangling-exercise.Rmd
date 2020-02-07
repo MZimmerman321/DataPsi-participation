@@ -339,7 +339,7 @@ the following lines of code. Ensure there are no `NA`'s. A helpful function to
 compute changes in a variable across rows of data (e.g., for time-series data) 
 is `tsibble::difference()`:
 
-```
+```{r}
 drop_na() %>% 
 ungroup() %>% 
 arrange(year) %>% 
