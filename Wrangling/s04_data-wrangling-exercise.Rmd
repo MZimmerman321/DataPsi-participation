@@ -224,9 +224,22 @@ The `if_else` function is useful for changing certain elements in a data frame.
 
 Example: Suppose Canada's 1952 life expectancy was mistakenly entered as 68.8 in the data frame, but is actually 70. Fix it using `if_else` and `mutate`. 
 
+
+replace bangladesh lifeexp with na
+
 ```{r}
 gapminder %>%
-  mutate(FILL_THIS_IN)
+  mutate(lifeExp = if_else(country == "Bangladesh",
+                                       NA_real_, 
+                                       lifeExp))
+```
+
+
+```{r}
+gapminder %>%
+  mutate(lifeExp = if_else(country == "Canada" & 
+                             year == 1952, 70,
+                             lifeExp))
 ```
 
 Your turn: Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma. (Hint: use the `paste` function with the `sep=", "` argument).
