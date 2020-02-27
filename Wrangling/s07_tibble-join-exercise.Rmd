@@ -12,17 +12,21 @@ You will need data from Joey Bernhardt's `singer` R package for this exercise.
 
 You can download the singer data from the `USF-Psych-DataSci/Classroom` repo:
 
-```
+```{r}
+library(tidyverse)
+library(readr)
+
 songs <- read_csv("https://github.com/USF-Psych-DataSci/Classroom/raw/master/data/singer/songs.csv")
-locations <- read_csv(https://github.com/USF-Psych-DataSci/Classroom/raw/master/data/singer/loc.csv")
+
+locations <- read_csv("https://github.com/USF-Psych-DataSci/Classroom/raw/master/data/singer/loc.csv")
 ```
 
 If you want, you could instead install the `singer` package itself. To do that,
 you'll need to install `devtools`. Running this code in your console should do 
 the trick:
 
-```
-install.packages("devtools")
+```{r}
+library("devtools")
 devtools::install_github("JoeyBernhardt/singer")
 ```
 
@@ -33,6 +37,9 @@ library(tidyverse)
 library(singer)
 knitr::opts_chunk$set(fig.width=4, fig.height=3, warning = FALSE, fig.align = "center")
 ```
+
+
+
 
 <!-- The following chunk allows errors when knitting -->
 
@@ -63,7 +70,7 @@ Let's take a look at them (after minor modifications by renaming and shuffling):
 
 ```{r}
 time %>% 
-  FILL_THIS_IN(album, by = FILL_THIS_IN)
+  inner_join(album, by = c("song", "artist_name"))
 ```
 
 2. Go ahead and add the corresponding albums to the `time` tibble, being sure to 
@@ -71,21 +78,21 @@ time %>%
 
 ```{r}
 time %>% 
-  FILL_THIS_IN(album, by = FILL_THIS_IN)
+  left_join(album, by = "song")
 ```
 
 3. Which songs do we have "year", but not album info?
 
 ```{r}
 time %>% 
-  FILL_THIS_IN(album, by = "song")
+  anti_join(album, by = "song")
 ```
 
 4. Which artists are in `time`, but not in `album`?
 
 ```{r}
 time %>% 
-  anti_join(album, by = "FILL_THIS_IN")
+  anti_join(album, by = "artist_name")
 ```
 
 
@@ -93,8 +100,13 @@ time %>%
    available in one tibble. What would you do?
 
 ```{r}
-FILL_THIS_IN %>% 
-  FILL_THIS_IN(FILL_THIS_IN, by = "song")
+  time %>% 
+  full_join(album, by = c("song", "artist_name")
+            
+#or
+#time %>% 
+#  full_join(select(album, -artist_name), by = "song")
+
 ```
 
 
@@ -104,14 +116,16 @@ Load in three tibbles of data on the Lord of the Rings:
 
 ```{r}
 fell <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/The_Fellowship_Of_The_Ring.csv")
+
 ttow <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/The_Two_Towers.csv")
+
 retk <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/The_Return_Of_The_King.csv")
 ```
 
 1. Combine these into a single tibble.
 
 ```{r}
-FILL_THIS_IN(fell, FILL_THIS_IN)
+bind_rows(fell, ttow, retk)
 ```
 
 2. Which races are present in "The Fellowship of the Ring" (`fell`), but not in 
@@ -120,7 +134,7 @@ FILL_THIS_IN(fell, FILL_THIS_IN)
 ```{r}
 fell %>% 
   anti_join(ttow, by = "Race") %>% 
-  FILL_THIS_IN(FILL_THIS_IN, by = "Race")
+  anti_join(retk, by = "Race")
 ```
 
 
@@ -140,14 +154,14 @@ with two toy tibbles named `y` and `z`, similar to Data Wrangling Cheatsheet
 1. Rows that appear in both `y` and `z`
 
 ```{r}
-FILL_THIS_IN(y, z)
+intersect(y, z)
 ```
 
 2. You collected the data in `y` on Day 1, and `z` in Day 2. 
    Make a data set to reflect that.
 
 ```{r}
-FILL_THIS_IN(
+union(
   mutate(y, day = "Day 1"),
   mutate(z, day = "Day 2")
 )
@@ -156,5 +170,32 @@ FILL_THIS_IN(
 3. The rows contained in `z` are bad! Remove those rows from `y`.
 
 ```{r}
-FILL_THIS_IN(FILL_THIS_IN, FILL_THIS_IN)
+setdiff(y, z)
 ```
+
+
+
+
+```{r}
+install.packages("nycflights13") 
+library(nycflights13)
+```
+
+
+```{r}
+alld <-
+ left_join(airports, airlines, by = ("name"))
+
+alld  %>% 
+  left_join(flights, by = "carrier")
+
+alld %>%  
+  full_join(planes, by = "tailnum")
+
+alld %>% 
+  right_join(weather, by = c("year", "time_hour")) 
+
+View(alld)
+
+```
+airlines and airports by name, join flights by carrier, planes by year and tail num, weather by year time hour
